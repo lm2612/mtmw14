@@ -13,9 +13,10 @@ def cosBell(x):
 ### chooses bell(x) where condition is true, else chooses zeros     ###
     return np.where((x<0.5) | (x>=1.0), bell(x), 0.)
 
-def squareWave(x):
-    "Function defining a square wave as a function of position, x"
-    return np.where((x<0.5) | (x>=1.0), 1., 0.)
+def squareWave(x,a=0.5,b=1.0):
+    """Function defining a square wave as a function of position, x
+    1 between a and b and 0 elsewhere"""
+    return np.where((x<=b) & (x>=a), 1., 0.)
 
 def mixed(x):
     "A flat peak in one location and a cosine bell in another"
