@@ -39,8 +39,8 @@ def next_step(T,h,dt):
 def f(T,h):
     """f = RHS of equation for dT/dt and dh/dt
     returns tuple """
-    fT=R*T+gamma*h
-    fh=(-r*h -alpha*b*T)
+    fT=R*T+gamma*h - epsilon*(h+b*T)**3 + gamma*xi
+    fh=-r*h -alpha*b*T -alpha*xi
 
     return fT,fh
 

@@ -1,14 +1,14 @@
 
 # Parameters
-forcing = 0
-epsilon = 0
+xi = 0
+epsilon = 0.
 b0 = 2.5
-mu = 2./3
+mu = 2./3 
 gamma = 0.75
 c = 1.
 r = 0.25
 alpha = 0.125
-nt = 41
+nt = 250
 dt=0.5 #(1 month)
 
 
