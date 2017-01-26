@@ -14,9 +14,13 @@ def taskA():
     
     T,h=rk4(TOld,hOld,mu0,nt=1000)
     
-    time_plot(T,h)
-    phase_plot(T,h)
+    tg = time_plot(T,h)
+    pg = phase_plot(T,h)
 
+    print(type(tg))
+    print(type(pg))
+    plt.show()
+taskA()
 def taskC():
     # Initial Conditions
     TOld = 1.125
@@ -58,4 +62,3 @@ def taskE():
     
     time_plot(T,h)
     phase_plot(T,h)
-taskE()

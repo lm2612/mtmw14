@@ -4,6 +4,23 @@ from parameters import *
 from annualcycle import *
 from windstress import *
 
+def f_matrix(T,h,R,b,epsilon,xi):
+    """Calculates the RHS of equations for dT/dt and dh/dt for recharge oscillator
+    Returns fT,fh which are RHS of dT/dt and dh/dt respectively
+    Arguments:
+        T: temperature anomaly, float
+        h: thermocline depth, float
+        R:
+        b:
+        epsilon:
+        xi:
+    """
+    M=np.array([[R,gamma],[-alpha*b,-r]])
+    b= [epsilon*(h+b*T)**3+gamma*xi, -alpha*xi]
+    w=[T,h]
+    fw=np.dot(M,w)+b
+    return fw[0],fw[1]
+    
 def f(T,h,R,b,epsilon,xi):
     """Calculates the RHS of equations for dT/dt and dh/dt for recharge oscillator
     Returns fT,fh which are RHS of dT/dt and dh/dt respectively
