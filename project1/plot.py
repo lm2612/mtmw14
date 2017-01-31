@@ -14,8 +14,8 @@ def time_plot(T,h):
 
 def phase_plot(T,h):
 
-    fig=plt.figure()
-    plt.plot(7.5*T,150*h)
+    fig,ax=plt.subplots()
+    ax.plot(7.5*T,150*h)
     plt.xlabel('E.Pacific SST anomaly (K)')
     plt.ylabel('W.Pacific thermocline depth (m)')
     return fig
