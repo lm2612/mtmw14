@@ -9,7 +9,12 @@ around Tmid and hmid"""
     T = np.arange(Tmid-2*dT, Tmid+2*dT, dT)
     h = np.arange(hmid-2*dh, hmid+2*dh, dh)
 
-    
+    fig1 = plt.figure(1)
+    plt.xlabel('time (months)')
+    plt.ylabel('SST anomaly (K)')
+    fig2 = plt.figure(2)
+    plt.xlabel('SST anomaly (K)')
+    plt.ylabel('thermocline height (m)')
 
     for iT in range(len(T)):
         for ih in range(len(h)):
@@ -18,10 +23,18 @@ around Tmid and hmid"""
 
             # Calculate T and h for this particular ensemble
             Tens,hens=rk4(T0,h0,mu0,nt,f_ann,f_ran,epsilon,mu_ann)
-            # Add this SST to plot
-            plt.plot(2.*dt*np.arange(nt),7.*Tens)
 
-    plt.xlabel('time (months)')
-    plt.ylabel('SST anomaly (K)')
+            # Add this SST to plot
+            plt.figure(1)
+            plt.plot(2.*dt*np.arange(nt),7.5*Tens)
+            plt.figure(2)
+            plt.plot(7.5*Tens,150*hens)
+            
+
+    
     plt.show()
-ensemble(1.125,0.01,0.001,0.001,0.75,nt=1200,f_ann=0.02,f_ran=0.2,epsilon=0.1,mu_ann=0.2)
+
+ensemble(0.15,0.0,0.01,0.01,0.75,nt=120,f_ann=0.02,f_ran=0.2,epsilon=0.1,mu_ann=0.2)
+
+
+
