@@ -1,7 +1,7 @@
 import numpy as np
 from parameters import *
 
-def windstress(f_ran,f_ann,it):
+def windstress(f_ann,f_ran,it):
 
     W = (np.random.randint(-1e5,1e5))/(1e5)
 

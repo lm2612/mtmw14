@@ -3,18 +3,21 @@ from schemes import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-def ensemble(Tmid, hmid, dT, dh, mu0, nt=1000,f_ann=0.,f_ran=0.,epsilon=0., mu_ann=0.):
+def ensemble(Tmid, hmid, dT, dh, mu0, n_cycles=5,f_ann=0.,f_ran=0.,epsilon=0., mu_ann=0.):
     """ Perturbs T and h at start of each forecast in increments of dT and dh
 around Tmid and hmid"""
     T = np.arange(Tmid-2*dT, Tmid+2*dT, dT)
     h = np.arange(hmid-2*dh, hmid+2*dh, dh)
+    fig=plt.figure()
+    ax1=plt.subplot(121)
+    plt.xlabel('T (K)')
+    plt.ylabel('h (m)')
+    ax2=plt.subplot(222)
+    plt.ylabel('T (K)')
+    ax3=plt.subplot(224,sharex=ax2)
+    plt.xlabel('Time (months)')
+    plt.ylabel('h (m)')
 
-    fig1 = plt.figure(1)
-    plt.xlabel('time (months)')
-    plt.ylabel('SST anomaly (K)')
-    fig2 = plt.figure(2)
-    plt.xlabel('SST anomaly (K)')
-    plt.ylabel('thermocline height (m)')
 
     for iT in range(len(T)):
         for ih in range(len(h)):
@@ -22,19 +25,20 @@ around Tmid and hmid"""
             h0 = h[ih]
 
             # Calculate T and h for this particular ensemble
-            Tens,hens=rk4(T0,h0,mu0,nt,f_ann,f_ran,epsilon,mu_ann)
+            Tens,hens=rk4(T0,h0,mu0,n_cycles,f_ann,f_ran,epsilon,mu_ann)
+            nt= int(round(n_cycles*42/(2*dt)))
 
             # Add this SST to plot
-            plt.figure(1)
-            plt.plot(2.*dt*np.arange(nt),7.5*Tens)
-            plt.figure(2)
-            plt.plot(7.5*Tens,150*hens)
+            ax1.plot(7.5*Tens,150*hens)
+            ax2.plot(2.*dt*np.arange(nt),7.5*Tens)
+            ax3.plot(2.*dt*np.arange(nt),150*hens)
+
             
-
-    
+    ax2.get_xaxis().set_visible(False)
+    fig.set_size_inches(8,3)
     plt.show()
+    
 
-ensemble(0.15,0.0,0.01,0.01,0.75,nt=120,f_ann=0.02,f_ran=0.2,epsilon=0.1,mu_ann=0.2)
 
 
 
